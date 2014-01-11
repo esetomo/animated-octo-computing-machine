@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,6 +26,8 @@ namespace Lemonade
     {
         private int drawScreenHandle;
         private int softImageHandle;
+        private int modelHandle;
+        private float a;
 
         public MainWindow()
         {
@@ -44,6 +47,12 @@ namespace Lemonade
 
             softImageHandle = DX.MakeARGB8ColorSoftImage((int)Width, (int)Height);
 
+            string[] files = Directory.GetFiles(".", "*.pmd", SearchOption.AllDirectories);
+            modelHandle = DX.MV1LoadModel(files[0]);
+            DX.MV1SetPosition(modelHandle, DX.VGet(250.0f, 170.0f, -260.0f));
+            DX.MV1SetScale(modelHandle, DX.VGet(8.0f, 8.0f, 8.0f));
+            a = 0.0f;
+
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
@@ -60,13 +69,19 @@ namespace Lemonade
 
         private void RenderContent()
         {
-            DX.SetFontSize(48);
-            DX.DrawString(0, 100, DateTime.Now.ToString(), DX.GetColor(0, 255, 0));
+            a += 0.1f;
+            DX.MV1SetRotationXYZ(modelHandle, DX.VGet(0.0f, a, 0.0f));
+            DX.MV1DrawModel(modelHandle);
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            DX.DxLib_End();
+            DX.DxLib_End();            
+        }
+
+        private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DragMove();
         }
     }
 }
