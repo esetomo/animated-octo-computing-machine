@@ -48,8 +48,7 @@ namespace Lemonade
 
             string[] files = Directory.GetFiles(".", "*.pmd", SearchOption.AllDirectories);
             modelHandle = DX.MV1LoadModel(files[0]);
-            DX.MV1SetPosition(modelHandle, DX.VGet(250.0f, 170.0f, -260.0f));
-            DX.MV1SetScale(modelHandle, DX.VGet(8.0f, 8.0f, 8.0f));
+            
             angle = 0.0f;
 
             CompositionTarget.Rendering += CompositionTarget_Rendering;
@@ -87,9 +86,16 @@ namespace Lemonade
 
         private void RenderContent()
         {
-            angle += 0.1f;
+            DX.SetupCamera_Perspective(0.25f);
+            DX.VECTOR position = DX.VGet(0.0f, 18.0f, -100.0f);
+            DX.VECTOR target = DX.VGet(0.0f, 10.0f, 0.0f);
+            DX.SetCameraPositionAndTarget_UpVecY(position, target);
+
+            DX.MV1SetPosition(modelHandle, DX.VGet(0.0f, 0.0f, 0.0f));
             DX.MV1SetRotationXYZ(modelHandle, DX.VGet(0.0f, angle, 0.0f));
             DX.MV1DrawModel(modelHandle);
+
+            angle += 0.1f;
         }
 
         private void Window_Closed(object sender, EventArgs e)
