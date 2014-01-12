@@ -5,5 +5,10 @@
         AllowsTransparency="True"
         Background="Transparent"
         Title="MainWindow" Height="512" Width="512" Loaded="Window_Loaded" Closed="Window_Closed" MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    <Image Name="image1"/>
+    <Grid>
+        <Image Name="image1"/>
+        <StackPanel>
+            <Slider Name="slider1"/>
+        </StackPanel>
+    </Grid>
 </Window>

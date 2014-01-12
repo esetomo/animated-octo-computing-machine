@@ -14,6 +14,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -28,7 +29,6 @@ namespace Lemonade
         private int drawScreenHandle = -1;
         private int softImageHandle = -1;
         private int modelHandle = -1;
-        private float angle;
         private WriteableBitmap bmp = null;
 
         public MainWindow()
@@ -48,9 +48,15 @@ namespace Lemonade
 
             string[] files = Directory.GetFiles(".", "*.pmd", SearchOption.AllDirectories);
             modelHandle = DX.MV1LoadModel(files[0]);
-            
-            angle = 0.0f;
 
+            DX.MV1AttachAnim(modelHandle, 0);
+            float totalFrames = DX.MV1GetAttachAnimTotalTime(modelHandle, 0);
+            slider1.Maximum = totalFrames;
+            Duration duration = new Duration(TimeSpan.FromSeconds(totalFrames / 30.0));
+            DoubleAnimation anim = new DoubleAnimation(0, totalFrames, duration);
+            anim.RepeatBehavior = RepeatBehavior.Forever;
+            slider1.BeginAnimation(Slider.ValueProperty, anim);
+            
             CompositionTarget.Rendering += CompositionTarget_Rendering;
         }
 
@@ -92,10 +98,10 @@ namespace Lemonade
             DX.SetCameraPositionAndTarget_UpVecY(position, target);
 
             DX.MV1SetPosition(modelHandle, DX.VGet(0.0f, 0.0f, 0.0f));
-            DX.MV1SetRotationXYZ(modelHandle, DX.VGet(0.0f, angle, 0.0f));
+            DX.MV1SetAttachAnimTime(modelHandle, 0, (float)slider1.Value);
             DX.MV1DrawModel(modelHandle);
-
-            angle += 0.1f;
+            DX.SetFontSize(24);
+            DX.DrawString(100, 100, string.Format("{0:###0}", slider1.Value), DX.GetColor(0, 255, 0));
         }
 
         private void Window_Closed(object sender, EventArgs e)
