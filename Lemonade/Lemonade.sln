@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lemonade", "Lemonade\Lemona
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MikuMikuFlex", "..\mmflex\MikuMikuFlex\MikuMikuFlex\MikuMikuFlex.csproj", "{A04F1A52-5EFD-402A-A207-B239EA15DF55}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MMDFilePaser", "..\mmflex\MikuMikuFlex\MMDFileParser\MMDFilePaser.csproj", "{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,16 @@ Global
 		{A04F1A52-5EFD-402A-A207-B239EA15DF55}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{A04F1A52-5EFD-402A-A207-B239EA15DF55}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{A04F1A52-5EFD-402A-A207-B239EA15DF55}.Release|x86.ActiveCfg = Release|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{3DF05446-6065-4EBB-9BCC-075A0D91DDA0}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
