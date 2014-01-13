@@ -35,9 +35,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DxLibDotNet">
-      <HintPath>..\..\Vendors\DxLibDotNet3_11b\DxLibDotNet\DxLibDotNet.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -97,9 +94,17 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\mmflex\MikuMikuFlex\MikuMikuFlex\MikuMikuFlex.csproj">
+      <Project>{a04f1a52-5efd-402a-a207-b239ea15df55}</Project>
+      <Name>MikuMikuFlex</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(SolutionDir)..\Vendors\DxLibDotNet3_11b\DxLibDotNet\DxLib.dll $(TargetDir)</PostBuildEvent>
+    <PostBuildEvent>mkdir $(TargetDir)Shader
+copy $(SolutionDir)..\mmflex\MikuMikuFlex\MikuMikuFlex\Shader\grid.fx $(TargetDir)Shader\
+copy $(SolutionDir)..\mmflex\MikuMikuFlex\MikuMikuFlex\x86\SQLite.Interop.dll $(TargetDir)</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

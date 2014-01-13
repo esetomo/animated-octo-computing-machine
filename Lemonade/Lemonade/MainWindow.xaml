@@ -1,14 +1,14 @@
 ﻿<Window x:Class="Lemonade.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mmf="clr-namespace:MMF.WPF;assembly=MikuMikuFlex"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="MainWindow" Height="512" Width="512" Loaded="Window_Loaded" Closed="Window_Closed" MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    <Grid>
-        <Image Name="image1"/>
-        <StackPanel>
-            <Slider Name="slider1"/>
-        </StackPanel>
-    </Grid>
+        Title="MainWindow"
+        Height="512"
+        Width="512"
+        Loaded="Window_Loaded"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+    <mmf:WPFRenderControl Name="renderControl"/>
 </Window>
