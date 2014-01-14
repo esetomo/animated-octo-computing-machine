@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using Microsoft.Win32;
+using MMF.CG.Model;
 using MMF.CG.Model.MMD;
 using MMF.CG.Motion;
 
@@ -20,6 +21,10 @@ namespace Lemonade
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // remove basic grid
+            if(renderControl.WorldSpace.DrawableResources.Count > 0)
+                renderControl.WorldSpace.RemoveResource(renderControl.WorldSpace.DrawableResources[0]);
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "pmxモデルファイル(*.pmx)|*.pmx";
             if (ofd.ShowDialog() != true)
