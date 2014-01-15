@@ -1,7 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows.Interop;
+using System.Diagnostics;
 using Microsoft.Win32;
 using MMF.CG.Model;
 using MMF.CG.Model.MMD;
@@ -14,8 +16,8 @@ namespace Lemonade
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
     public partial class MainWindow : Window
-    {
-        MMDModel model;
+    {        
+        private MMDModel model;
 
         public MainWindow()
         {
@@ -24,6 +26,10 @@ namespace Lemonade
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            HwndSource source = (HwndSource)HwndSource.FromVisual(this);
+            if (Application.Current.MainWindow == this)
+                source.AddHook(new HwndSourceHook(SakuraAPI.WndProc));
+
             // remove basic grid
             if(renderControl.WorldSpace.DrawableResources.Count > 0)
                 renderControl.WorldSpace.RemoveResource(renderControl.WorldSpace.DrawableResources[0]);
@@ -45,7 +51,6 @@ namespace Lemonade
             renderControl.WorldSpace.AddResource(model);
 
             Dictionary<string, string> dic = new Dictionary<string, string>();
-            HwndSource source = (HwndSource)HwndSource.FromVisual(this);
             dic["hwnd"] = source.Handle.ToString();
             dic["name"] = model.Model.ModelInfo.ModelName_En;
             SakuraFMO.Save(dic);
