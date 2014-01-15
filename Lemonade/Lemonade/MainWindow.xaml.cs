@@ -1,9 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Collections.Generic;
+using System.Windows.Interop;
 using Microsoft.Win32;
 using MMF.CG.Model;
 using MMF.CG.Model.MMD;
 using MMF.CG.Motion;
+using MMDFileParser.PMXModelParser;
 
 namespace Lemonade
 {
@@ -40,6 +43,12 @@ namespace Lemonade
             }
             
             renderControl.WorldSpace.AddResource(model);
+
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            HwndSource source = (HwndSource)HwndSource.FromVisual(this);
+            dic["hwnd"] = source.Handle.ToString();
+            dic["name"] = model.Model.ModelInfo.ModelName_En;
+            SakuraFMO.Save(dic);
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
