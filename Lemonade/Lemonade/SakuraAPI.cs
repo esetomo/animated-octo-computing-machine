@@ -10,9 +10,32 @@ namespace Lemonade
 {
     public class SakuraAPI
     {
-        public const int BroadcastGhostchange = 1024;
         public const int HWND_BROADCAST = 0xffff;
         public const int WM_COPYDATA = 0x004a;
+
+        public const int SA_EXECUTEMAKEMENU = 0;
+        public const int SA_EXECUTEWRITEFMO = 1;
+        public const int SA_EXECUTE_WINDOWSTATESWITCH = 2;
+        public const int SA_EXECUTERELOADSHIORI = 3;
+        public const int SA_EXECUTENOTIFYOTHERGHOSTNAME = 4;
+
+        public const int SA_GETHEADCOLLISIONRECTSAKURA = 128;
+        public const int SA_GETFACECOLLISIONRECTSAKURA = 129;
+        public const int SA_GETBUSTCOLLISIONRECTSAKURA = 130;
+        public const int SA_GETCENTERPOINTSAKURA = 131;
+        public const int SA_GETABSOLUTEKINOKOFIELDCENTERPOINTSAKURA = 132;
+        public const int SA_GETHEADCOLLISIONRECTKERO = 133;
+        public const int SA_GETFACECOLLISIONRECTKERO = 134;
+        public const int SA_GETBUSTCOLLISIONRECTKERO = 135;
+        public const int SA_GETCENTERPOINTKERO = 136;
+        public const int SA_GETABSOLUTEKINOKOFIELDCENTERPOINTKERO = 137;
+        public const int SA_GETPROCESSID = 138;
+        public const int SA_GETSHAREDMEMORY = 139;
+        public const int SA_GETGHOSTSTATE = 140;
+
+        public const int SA_NOTIFYEVENT = 256;
+
+        public const int BroadcastGhostchange = 1024;
 
         private static int message = 0;
         public static int Message
@@ -36,6 +59,8 @@ namespace Lemonade
             {
                 switch (wParam.ToInt32())
                 {
+                    case SA_GETPROCESSID:
+                        return new IntPtr(Process.GetCurrentProcess().Id);
                     case BroadcastGhostchange:
                         if (lParam.ToInt32() != Process.GetCurrentProcess().Id)
                             SakuraFMO.Reset();

@@ -12,13 +12,23 @@ namespace Lemonade
         public static void Proc(byte[] bytes)
         {
             Request req = new Request(bytes);
+            if (req.Headers.ContainsKey("Script"))
+            {
+                SakuraScript script = new SakuraScript(req.Headers["Script"]);
+                script.Run();
+            }
         }
 
         public class Request
         {
             private string method;
+            public string Method { get { return method; } }
+
             private string version;
+            public string Version { get { return version;  } }
+
             private Dictionary<string, string> headers;
+            public IReadOnlyDictionary<string, string> Headers { get { return headers; } }
 
             public Request(byte[] bytes)
             {
