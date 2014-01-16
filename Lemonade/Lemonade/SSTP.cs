@@ -15,7 +15,6 @@ namespace Lemonade
             if (req.Headers.ContainsKey("Script"))
             {
                 SakuraScript script = new SakuraScript(req.Headers["Script"]);
-                script.Run();
             }
         }
 
