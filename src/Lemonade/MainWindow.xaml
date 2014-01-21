@@ -8,7 +8,7 @@
         Height="512"
         Width="512"
         Loaded="Window_Loaded"
+        Closed="Window_Closed"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
-    <Grid>
-    </Grid>
+    <Image Name="image1" />
 </Window>

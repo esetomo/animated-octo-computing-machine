@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 require 'albacore'
+require 'rake/clean'
 
 task default: :run
 
@@ -24,4 +25,11 @@ end
 
 task run: :msbuild do |t|
   system 'start src/Lemonade/bin/Debug/Lemonade.exe'
+end
+
+task clean: :msbuild_clean
+
+msbuild :msbuild_clean do |b|
+  b.solution = 'src/Lemonade.sln'
+  b.targets = [:Clean]
 end
