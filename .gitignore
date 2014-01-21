@@ -155,6 +155,5 @@ $RECYCLE.BIN/
 # Mac desktop service store files
 .DS_Store
 
-Vendors/
-Lemonade/packages
+src/packages
 Gemfile.lock
