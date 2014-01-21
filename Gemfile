@@ -1,3 +1,4 @@
 source 'http://rubygems.org'
 
-gem 'albacore', '2.0.0.rc.5'
+gem 'rubyzip', '0.9.9'
+gem 'albacore', '0.3.5'
