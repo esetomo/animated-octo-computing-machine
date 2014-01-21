@@ -9,6 +9,7 @@ using DxLibDLL;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace Lemonade
 {
@@ -20,7 +21,13 @@ namespace Lemonade
         private int drawScreenHandle = -1;
         private int softImageHandle = -1;
         private int modelHandle = -1;
+        private int motionHandle = -1;
+        private int attachIndex = -1;
         private WriteableBitmap bmp = null;
+        private Stopwatch stopwatch;
+        private double prevSec = 0.0;
+        private int currentFrame = 0;
+        private int totalFrame = 0;
 
         public MainWindow()
         {
@@ -48,24 +55,24 @@ namespace Lemonade
                 return;
 
             modelHandle = DX.MV1LoadModel(ofd.FileName);            
+            attachIndex = DX.MV1AttachAnim(modelHandle, 0);
+            totalFrame = (int)DX.MV1GetAnimTotalTime(modelHandle, attachIndex);
 
-            /*
-            ofd.Filter = "vmdモーションファイル(*.vmd)|*.vmd";
-            if (ofd.ShowDialog() == true)
-            {
-            }
-             */
-            
             Dictionary<string, string> dic = new Dictionary<string, string>();
             dic["hwnd"] = source.Handle.ToString();
             dic["name"] = "noname";
             SakuraFMO.Save(dic);
 
-            CompositionTarget.Rendering += CompositionTarget_Rendering;
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            ComponentDispatcher.ThreadIdle += ComponentDispatcher_ThreadIdle;
         }
 
-        void CompositionTarget_Rendering(object sender, EventArgs e)
+        void ComponentDispatcher_ThreadIdle(object sender, EventArgs e)
         {
+            WaitNextFrame();
+
             int w = (int)Width;
             int h = (int)Height;
 
@@ -90,6 +97,19 @@ namespace Lemonade
             bmp.Unlock();
         }
 
+        private void WaitNextFrame()
+        {
+            double frameSec = 1.0 / 30.0;
+            double nowSec = stopwatch.ElapsedTicks / (double)Stopwatch.Frequency;
+            double nextSec = prevSec + frameSec;
+            double waitSec = nextSec - nowSec;
+
+            if (waitSec > 0.0)
+                Thread.Sleep((int)(waitSec * 1000));
+
+            prevSec = Math.Max(nowSec, nextSec);
+        }
+
         [DllImport("DxLib.dll")]
         extern static IntPtr dx_GetImageAddressSoftImage(int SIHandle);
 
@@ -101,7 +121,15 @@ namespace Lemonade
             DX.SetCameraPositionAndTarget_UpVecY(position, target);
 
             DX.MV1SetPosition(modelHandle, DX.VGet(0.0f, 0.0f, 0.0f));
+
+            currentFrame++;
+            if (currentFrame >= totalFrame)
+                currentFrame = 0;
+            int r = DX.MV1SetAttachAnimTime(modelHandle, attachIndex, currentFrame);
+
             DX.MV1DrawModel(modelHandle);
+
+            DX.DrawString(400, 450, string.Format("{0}", currentFrame), DX.GetColor(0, 255, 0));
         }
 
         private void Window_Closed(object sender, EventArgs e)
