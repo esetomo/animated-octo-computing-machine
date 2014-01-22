@@ -111,7 +111,7 @@ namespace Lemonade
         private void RenderContent()
         {
             DX.SetupCamera_Perspective(0.25f);
-            DX.VECTOR position = DX.VGet(0.0f, 18.0f, -100.0f);
+            DX.VECTOR position = DX.VGet(0.0f, 18.0f, -60.0f);
             DX.VECTOR target = DX.VGet(0.0f, 10.0f, 0.0f);
             DX.SetCameraPositionAndTarget_UpVecY(position, target);
 
