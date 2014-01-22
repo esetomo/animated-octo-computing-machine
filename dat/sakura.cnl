@@ -13,8 +13,8 @@ None
 [Name] 前髪01
 [Path] ./parts/hair_mf1_mt001.pmd
 [Child]
-[Name] 後髪01
-[Path] ./parts/hair_mr1_mt001.pmd
+[Name] 後髪02
+[Path] ./parts/hair_mr1_mt002.pmd
 [Child]
 None
 [Parent]
@@ -52,17 +52,14 @@ NEXT
 [Name] mt_sock1
 [Sel] 白
 NEXT
-[Name] mt_hair
-[Sel] 茶髪01
-NEXT
 [Name] mt_muffler1
 [Sel] 黒地に白のチェック
 NEXT
-[Name] mt_armband1
-[Sel] 風紀委員会
-NEXT
 [Name] mt_glasses_frame
 [Sel] 赤
+NEXT
+[Name] mt_eye
+[Sel] 茶色
 NEXT
 [Name] mt_slr1_s
 [Sel] 紺色
@@ -88,11 +85,11 @@ NEXT
 [Name] mt_jumper1
 [Sel] 紺
 NEXT
-[Name] mt_eye
-[Sel] 茶色
+[Name] mt_armband1
+[Sel] 風紀委員会
 NEXT
-[Name] mt_pants
-[Sel] 水色の縞
+[Name] mt_hair
+[Sel] 茶髪01
 NEXT
 [Name] mt_hada_obs
 [Sel] シワ少なめ
@@ -102,6 +99,9 @@ NEXT
 NEXT
 [Name] mt_skirt1
 [Sel] 紺色
+NEXT
+[Name] mt_pants
+[Sel] 水色の縞
 NEXT
 TRANSFORM
 [Scale] 1.000000
