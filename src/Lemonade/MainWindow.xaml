@@ -9,6 +9,7 @@
         Width="512"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
+        LocationChanged="Window_LocationChanged"
         MouseLeftButtonDown="Window_MouseLeftButtonDown">
     <Image Name="image1" />
 </Window>

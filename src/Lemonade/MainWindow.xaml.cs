@@ -62,6 +62,7 @@ namespace Lemonade
             stopwatch.Start();
 
             ComponentDispatcher.ThreadIdle += ComponentDispatcher_ThreadIdle;
+            Top = SystemParameters.WorkArea.Bottom - Height;
         }
 
         void ComponentDispatcher_ThreadIdle(object sender, EventArgs e)
@@ -135,6 +136,11 @@ namespace Lemonade
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
+        }
+
+        private void Window_LocationChanged(object sender, EventArgs e)
+        {
+            Top = SystemParameters.WorkArea.Bottom - Height;
         }
     }
 }
