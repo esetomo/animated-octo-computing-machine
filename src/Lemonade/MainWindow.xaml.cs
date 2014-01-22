@@ -49,12 +49,7 @@ namespace Lemonade
             if (DX.DxLib_Init() == -1)
                 throw new Exception("DxLib Init failed");
 
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "pmdモデルファイル(*.pmd)|*.pmd";
-            if (ofd.ShowDialog() != true)
-                return;
-
-            modelHandle = DX.MV1LoadModel(ofd.FileName);            
+            modelHandle = DX.MV1LoadModel(@"dat\sakura.pmd");            
             attachIndex = DX.MV1AttachAnim(modelHandle, 0);
             totalFrame = (int)DX.MV1GetAnimTotalTime(modelHandle, attachIndex);
 

@@ -159,3 +159,4 @@ src/packages
 Gemfile.lock
 *.zip
 DxLibDotNet/
+/Log.txt
