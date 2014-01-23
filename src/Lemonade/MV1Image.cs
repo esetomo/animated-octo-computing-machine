@@ -13,15 +13,24 @@ namespace Lemonade
 {
     class MV1Image : Image
     {
+        private MV1Model model = null;
         private int drawScreenHandle = -1;
         private int softImageHandle = -1;
-        private int modelHandle = -1;
-        private int attachIndex = -1;
         private WriteableBitmap bmp = null;
         private Stopwatch stopwatch;
         private double prevSec = 0.0;
-        private int currentFrame = 0;
-        private int totalFrame = 0;
+
+        public int SerikoSurface
+        {
+            get
+            {
+                return model.SerikoSurface;
+            }
+            set
+            {
+                model.SerikoSurface = value;
+            }
+        }
 
         protected override void OnInitialized(EventArgs e)
         {
@@ -31,9 +40,7 @@ namespace Lemonade
             this.Width = parentControl.Width;
             this.Height = parentControl.Height;
 
-            modelHandle = DX.MV1LoadModel(@"dat\sakura.pmd");
-            attachIndex = DX.MV1AttachAnim(modelHandle, 0);
-            totalFrame = (int)DX.MV1GetAnimTotalTime(modelHandle, attachIndex);
+            model = new MV1Model(@"dat\sakura.pmd");
 
             stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -92,16 +99,11 @@ namespace Lemonade
             DX.VECTOR target = DX.VGet(0.0f, 10.0f, 0.0f);
             DX.SetCameraPositionAndTarget_UpVecY(position, target);
 
-            DX.MV1SetPosition(modelHandle, DX.VGet(0.0f, 0.0f, 0.0f));
+            model.SetPosition(0.0f, 0.0f, 0.0f);
+            model.NextFrame();
+            model.Draw();
 
-            currentFrame++;
-            if (currentFrame >= totalFrame)
-                currentFrame = 0;
-            int r = DX.MV1SetAttachAnimTime(modelHandle, attachIndex, currentFrame);
-
-            DX.MV1DrawModel(modelHandle);
-
-            DX.DrawString(400, 450, string.Format("{0}", currentFrame), DX.GetColor(0, 255, 0));
+            DX.DrawString(400, 450, string.Format("{0}", model.CurrentFrame), DX.GetColor(0, 255, 0));
         }
     }
 }

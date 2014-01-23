@@ -57,7 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="..\..\DxLibDotNet\DxDLL.cs" />
+    <Compile Include="MV1Animation.cs" />
     <Compile Include="MV1Image.cs" />
+    <Compile Include="MV1Model.cs" />
     <Compile Include="SakuraAPI.cs" />
     <Compile Include="SakuraFMO.cs" />
     <Compile Include="SakuraScript.cs" />

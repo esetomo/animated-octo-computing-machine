@@ -39,6 +39,15 @@ namespace Lemonade
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if(e.ClickCount == 2)
+            {
+                int s = image1.SerikoSurface;
+                s++;
+                if (s > 4)
+                    s = 0;
+                image1.SerikoSurface = s;
+            }
+
             DragMove();
         }
 
