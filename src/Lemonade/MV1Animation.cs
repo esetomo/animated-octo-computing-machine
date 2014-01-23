@@ -61,12 +61,14 @@ namespace Lemonade
 
         public void NextFrame()
         {
-            DX.MV1SetAttachAnimBlendRate(modelHandle, attachIndex, blend);
+            // easeInOutSine
+            double b = Math.Sin((blend - 0.5) * Math.PI) * 0.5 + 0.5;
+            DX.MV1SetAttachAnimBlendRate(modelHandle, attachIndex, (float)b);
 
             switch(state)
             {
                 case States.FadeIn:
-                    blend += 0.2f;
+                    blend += 0.1f;
                     if (blend >= 1.0f)
                     {
                         state = States.Running;
@@ -74,7 +76,7 @@ namespace Lemonade
                     }
                     break;
                 case States.FadeOut:
-                    blend -= 0.2f;
+                    blend -= 0.1f;
                     if(blend <= 0.0f)
                     {
                         Detach();
