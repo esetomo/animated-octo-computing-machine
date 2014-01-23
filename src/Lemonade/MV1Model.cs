@@ -28,7 +28,8 @@ namespace Lemonade
 
         public void NextFrame()
         {
-            animations[0].NextFrame();
+            foreach(MV1Animation anim in animations)
+                anim.NextFrame();
         }
 
         public void Draw()
@@ -52,9 +53,9 @@ namespace Lemonade
             }
             set
             {
-                animations[serikoSurface].Detach();
+                animations[serikoSurface].FadeOut();
                 serikoSurface = value;
-                animations[serikoSurface].Attach();
+                animations[serikoSurface].FadeIn();
             }
         }
     }
