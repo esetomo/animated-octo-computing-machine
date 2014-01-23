@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="..\..\DxLibDotNet\DxDLL.cs" />
     <Compile Include="ModelBase.cs" />
+    <Compile Include="MV1Image.cs" />
     <Compile Include="SakuraAPI.cs" />
     <Compile Include="SakuraFMO.cs" />
     <Compile Include="SakuraScript.cs" />
