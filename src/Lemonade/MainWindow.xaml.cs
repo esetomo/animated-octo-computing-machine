@@ -21,7 +21,6 @@ namespace Lemonade
         private int drawScreenHandle = -1;
         private int softImageHandle = -1;
         private int modelHandle = -1;
-        private int motionHandle = -1;
         private int attachIndex = -1;
         private WriteableBitmap bmp = null;
         private Stopwatch stopwatch;
@@ -39,15 +38,6 @@ namespace Lemonade
             HwndSource source = (HwndSource)HwndSource.FromVisual(this);
             if (Application.Current.MainWindow == this)
                 source.AddHook(new HwndSourceHook(SakuraAPI.WndProc));
-
-            // ダミーのウィンドウハンドルを設定することによりDxLib側でウィンドウが生成されないようにする。
-            HwndSource dummySource = new HwndSource(0, 0, 0, 0, 0, "DxLib", IntPtr.Zero);
-            DX.SetUserWindow(dummySource.Handle);
-
-            DX.SetUseBackBufferTransColorFlag(DX.TRUE);
-
-            if (DX.DxLib_Init() == -1)
-                throw new Exception("DxLib Init failed");
 
             modelHandle = DX.MV1LoadModel(@"dat\sakura.pmd");            
             attachIndex = DX.MV1AttachAnim(modelHandle, 0);
@@ -126,11 +116,6 @@ namespace Lemonade
             DX.MV1DrawModel(modelHandle);
 
             DX.DrawString(400, 450, string.Format("{0}", currentFrame), DX.GetColor(0, 255, 0));
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            DX.DxLib_End();
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
